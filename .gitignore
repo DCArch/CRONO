@@ -30,3 +30,24 @@
 
 # Debug files
 *.dSYM/
+
+# Binaries
+apps/apsp/apsp
+apps/bc/bc
+apps/bc/bc_non_partitioned
+apps/bfs/bfs
+apps/bfs/bfs_atomic
+apps/community/community_atomic
+apps/community/community_lock
+apps/connected_components/connected_components_atomic
+apps/connected_components/connected_components_lock
+apps/dfs/dfs
+apps/pagerank/pagerank
+apps/pagerank/pagerank_lock
+apps/sssp/sssp
+apps/sssp/sssp_outer
+apps/sssp/sssp_outer_atomic
+apps/triangle_counting/triangle_counting_atomic
+apps/triangle_counting/triangle_counting_lock
+apps/triangle_counting/sorted_neighbors_tri_lock
+apps/tsp/tsp
