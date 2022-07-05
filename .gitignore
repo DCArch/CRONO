@@ -51,3 +51,7 @@ apps/triangle_counting/triangle_counting_atomic
 apps/triangle_counting/triangle_counting_lock
 apps/triangle_counting/sorted_neighbors_tri_lock
 apps/tsp/tsp
+
+# Inputs
+data/*.txt
+data/*.gz
