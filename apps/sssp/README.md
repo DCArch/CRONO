@@ -8,7 +8,7 @@ The first argument to the executable specifies whether you want to read the grap
 **Input Graph from a File**
 
 To run with P number of threads
-  ```./sssp 1 P <input_file>```
+  ```./sssp 1 P <input_file> <output_file>```
   
   It will then ask for the input file, enter:
   sample.txt
@@ -18,7 +18,7 @@ To run with P number of threads
 **Generate and Input using the Synthetic Graph Generator**
 
 To run with P number of threads, N vertices, and DEG edges per vertex
-  ```./sssp 0 P N DEG```
+  ```./sssp 0 P N DEG <output_file>```
 
 **Notes**
 

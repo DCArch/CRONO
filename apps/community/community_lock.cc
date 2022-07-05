@@ -200,7 +200,8 @@ int main(int argc, char** argv)
     int N = 0;
     int DEG = 0;
     FILE* file0 = NULL;
-    int select = atoi(argv[1]);
+    const int select = atoi(argv[1]);
+    char* out_filename;
     const int P1 = atoi(argv[2]);
     iterations = atoi(argv[3]);
 
@@ -208,6 +209,7 @@ int main(int argc, char** argv)
     if (select == 1)
     {
         const char* filename = argv[4];
+        out_filename = argv[5];
         file0 = fopen(filename, "r");
     }
 
@@ -215,6 +217,7 @@ int main(int argc, char** argv)
     if (select == 2)
     {
         const char* filename = argv[4];
+        out_filename = argv[5];
         mtx(filename);
         //select = 1;
         file0 = fopen(conv_file, "r");
@@ -318,6 +321,7 @@ int main(int argc, char** argv)
     {
         N = atoi(argv[4]);
         DEG = atoi(argv[5]);
+        out_filename = argv[6];
         printf("\nGraph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 
@@ -541,7 +545,7 @@ int main(int argc, char** argv)
 
     //Print Results
     FILE* pfile;
-    pfile = fopen("myfile.txt", "w");
+    pfile = fopen(out_filename, "w");
     for (int i = 0; i < largest; i++)
     {
         if (edges[i] != 0)

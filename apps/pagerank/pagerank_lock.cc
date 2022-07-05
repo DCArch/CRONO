@@ -154,13 +154,15 @@ int main(int argc, char** argv)
     FILE* file0 = NULL;
     int N = 0;                         //Total vertices
     int DEG = 0;                       //Edges per vertex
-    const int select = atoi(argv[1]);  //0 for synthetic, 1 for file read
+    const int select = atoi(argv[1]);
+    char* out_filename;
     char filename[100];
 
     //For graph through file input
     if (select == 1)
     {
         strcpy(filename, argv[3]);
+        out_filename = argv[4];
         file0 = fopen(filename, "r");
     }
 
@@ -252,6 +254,7 @@ int main(int argc, char** argv)
     {
         N = atoi(argv[3]);
         DEG = atoi(argv[4]);
+        out_filename = argv[5];
         printf("\nUniform Random Graph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 
@@ -448,7 +451,7 @@ int main(int argc, char** argv)
     //printf("\ndistance:%d \n",D[N-1]);
 
     //Print pageranks to file
-    FILE* f1 = fopen("file.txt", "w");
+    FILE* f1 = fopen(out_filename, "w");
 
     for (int i = 0; i <= N; i++)
     {

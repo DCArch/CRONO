@@ -150,7 +150,8 @@ int main(int argc, char** argv)
     FILE* f = NULL;
     int N = 0;                         //Total vertices
     int DEG = 0;                       //Edges per vertex
-    const int select = atoi(argv[1]);  //0 for synthetic, 1 for file read
+    const int select = atoi(argv[1]);
+    char* out_filename;
     char filename[100];
 
     //For graph through file input
@@ -159,6 +160,7 @@ int main(int argc, char** argv)
         //printf("Please Enter The Name Of The File You Would Like To Fetch\n");
         //scanf("%s", filename);
         strcpy(filename, argv[3]);
+        out_filename = argv[4];
         //filename = argv[2];
         f = fopen(filename, "r");
     }
@@ -181,6 +183,7 @@ int main(int argc, char** argv)
     {
         N = atoi(argv[3]);
         DEG = atoi(argv[4]);
+        out_filename = argv[5];
         printf("\nGraph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 
@@ -417,7 +420,7 @@ int main(int argc, char** argv)
     //printf("\ndistance:%d \n",D[N-1]);
 
     //Print pageranks to file
-    FILE* f1 = fopen("file.txt", "w");
+    FILE* f1 = fopen(out_filename, "w");
 
     for (int i = 0; i < N; i++)
     {

@@ -156,11 +156,13 @@ int main(int argc, char** argv)
     int DEG = 0;
     //whether read from file or generate synthetic
     const int select = atoi(argv[1]);
+    char* out_filename;
 
     //if reading from file
     if (select == 1)
     {
         const char* filename = argv[3];
+        out_filename = argv[4];
         //printf("Please Enter The Name Of The File You Would Like To Fetch\n");
         //scanf("%s", filename);
         file0 = fopen(filename, "r");
@@ -189,6 +191,7 @@ int main(int argc, char** argv)
     {
         N = atoi(argv[3]);
         DEG = atoi(argv[4]);
+        out_filename = argv[5];
         printf("\nGraph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 
@@ -375,7 +378,7 @@ int main(int argc, char** argv)
 
     //Print Result
     FILE* pfile;
-    pfile = fopen("myfile.txt", "w");
+    pfile = fopen(out_filename, "w");
     for (int j = 0; j <= largest; j++)
     {
         if (exist[j] == 1)

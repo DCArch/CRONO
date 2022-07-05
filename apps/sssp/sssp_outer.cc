@@ -217,11 +217,13 @@ int main(int argc, char** argv)
     FILE* file0 = NULL;
 
     const int select = atoi(argv[1]);
+    char* out_filename;
     const int P = atoi(argv[2]);
     if (select == 0)
     {
         N = atoi(argv[3]);
         DEG = atoi(argv[4]);
+        out_filename = argv[5];
         printf("\nGraph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 
@@ -234,6 +236,7 @@ int main(int argc, char** argv)
     if (select == 1)
     {
         const char* filename = argv[3];
+        out_filename = argv[4];
         file0 = fopen(filename, "r");
         if (!file0)
         {
@@ -450,7 +453,7 @@ int main(int argc, char** argv)
 
     //for distance values check
     FILE* pfile;
-    pfile = fopen("myfile.txt", "w");
+    pfile = fopen(out_filename, "w");
     fprintf(pfile, "distances:\n");
     for (int i = 0; i < N; i++)
     {
