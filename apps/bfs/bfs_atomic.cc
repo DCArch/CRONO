@@ -171,7 +171,7 @@ int main(int argc, char** argv)
     int DEG = 0;
     //whether read from file or generate synthetic
     const int select = atoi(argv[1]);
-    char* out_filename;
+    char* out_filename = nullptr;
 
     //if reading from file
     if (select == 1)
@@ -206,7 +206,7 @@ int main(int argc, char** argv)
     {
         N = atoi(argv[3]);
         DEG = atoi(argv[4]);
-        out_filename = argv[5]
+        out_filename = argv[5];
         printf("\nGraph with Parameters: N:%d DEG:%d\n", N, DEG);
     }
 

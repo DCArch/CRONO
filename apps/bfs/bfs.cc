@@ -156,7 +156,7 @@ int main(int argc, char** argv)
     int DEG = 0;
     //whether read from file or generate synthetic
     const int select = atoi(argv[1]);
-    char* out_filename;
+    char* out_filename = nullptr;
 
     //if reading from file
     if (select == 1)

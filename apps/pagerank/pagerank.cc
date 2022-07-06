@@ -151,7 +151,7 @@ int main(int argc, char** argv)
     int N = 0;                         //Total vertices
     int DEG = 0;                       //Edges per vertex
     const int select = atoi(argv[1]);
-    char* out_filename;
+    char* out_filename = nullptr;
     char filename[100];
 
     //For graph through file input

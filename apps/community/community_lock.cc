@@ -200,8 +200,8 @@ int main(int argc, char** argv)
     int N = 0;
     int DEG = 0;
     FILE* file0 = NULL;
-    const int select = atoi(argv[1]);
-    char* out_filename;
+    int select = atoi(argv[1]);
+    char* out_filename = nullptr;
     const int P1 = atoi(argv[2]);
     iterations = atoi(argv[3]);
 

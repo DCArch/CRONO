@@ -217,7 +217,7 @@ int main(int argc, char** argv)
     FILE* file0 = NULL;
 
     const int select = atoi(argv[1]);
-    char* out_filename;
+    char* out_filename = nullptr;
     const int P = atoi(argv[2]);
     if (select == 0)
     {
