@@ -14,10 +14,23 @@ function clean
   rm -rf twitter.txt
 }
 
-echo "Do you wish to download data files or clean up?"
-select choice in "Download" "Clean"; do
-  case $choice in
-    Download ) download; break;;
-    Clean ) clean; break;;
-  esac
-done
+if [ "$#" -ne 1 ]
+then
+  echo "Do you wish to download data files or clean up?"
+  select choice in "Download" "Clean"; do
+    case $choice in
+      Download ) download; break;;
+      Clean ) clean; break;;
+    esac
+  done
+else
+  if [ "$1" == "-d" ]
+  then
+    download
+  elif [ "$1" == "-c" ]
+  then
+    clean
+  else
+    echo "Invalid command line arguments. Available options are -d for download, and -c for clean"
+  fi
+fi
