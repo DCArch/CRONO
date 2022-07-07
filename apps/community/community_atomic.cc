@@ -37,8 +37,6 @@ void init_weights(int N, int DEG, int** W_f, int** W_index);
 //Global Variables
 int** W_f;                                     //Weights
 pthread_mutex_t lock;                          //single lock
-pthread_mutex_t* locks;
-//pthread_mutex_t locks[2097152];                //Max locks for each vertex
 int iterations = 0;                            //Iterations for community over the graph
 //int *edges;                                    //Edges per vertex
 //int *exist;                                    //If vertex exists in the graph
@@ -123,7 +121,6 @@ void* do_work(void* args)
             }
             for (i = 0; i < edges[v]; i++)
             {
-                //pthread_mutex_lock(&locks[neighbor]);
                 float total_edges = largest * edges[v];
                 float inv_total_edges = 2 / total_edges;
                 int tempo = (inv_total_edges) * (inv_total_edges);
@@ -139,8 +136,6 @@ void* do_work(void* args)
                     mod_gain_temp = mod_gain_temp_temp;
                     index = W_index[v][i];
                 }
-
-                //pthread_mutex_unlock(&locks[neighbor]);
             }
             mod_gain[v] = mod_gain_temp;
             comm[v] = index;   //cvk
@@ -166,11 +161,6 @@ void* do_work(void* args)
             for (i = 0; i < edges[v] - 1; i++)
             {
                 int neighbor = W_index[v][i];
-                //printf("\n %d",neighbor);
-                //pthread_mutex_lock(&locks[neighbor]);
-                //W_index[v][i] = comm[neighbor];
-                //W_f[v][i] = comm[v] - comm[neighbor];
-                //pthread_mutex_unlock(&locks[neighbor]);
                 int c;
                 int temp = comm[v] - comm[neighbor];
                 do
@@ -495,7 +485,6 @@ int main(int argc, char** argv)
     //Synchronization variables
     pthread_barrier_init(&barrier_total, NULL, P);
     pthread_barrier_init(&barrier, NULL, P);
-    locks = (pthread_mutex_t*) malloc((largest + 16) * sizeof(pthread_mutex_t));
 
     for (int i = 0; i < largest + 1; i++)
     {
@@ -503,10 +492,6 @@ int main(int argc, char** argv)
         {
             //exist[i]=1;
             edges[i] = DEG;
-        }
-        if (edges[i] != 0)
-        {
-            pthread_mutex_init(&locks[i], NULL);
         }
     }
 

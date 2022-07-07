@@ -26,7 +26,6 @@ typedef struct
 
 //Global Variables
 pthread_mutex_t lock;           //single lock
-pthread_mutex_t locks[4194304]; //upper limit for locks, can be increased
 int local_min_buffer[1024];
 double dp_tid[1024];            //dangling pages for each thread, reduced later by locks
 int global_min_buffer;
@@ -372,7 +371,6 @@ int main(int argc, char** argv)
             }
             test[i] = DEG;
         }
-        pthread_mutex_init(&locks[i], NULL);
     }
 
     //Initialize PageRanks

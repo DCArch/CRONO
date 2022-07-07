@@ -43,7 +43,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 int min = INT_MAX;    //For local mins
 int min_index = 0;
 pthread_mutex_t lock;
-pthread_mutex_t locks[4194304];  //unused
 int u = 0;                       //next best vertex
 int local_min_buffer[1024];
 int global_min_buffer;
@@ -161,10 +160,6 @@ int main(int argc, char** argv)
     pthread_barrier_init(&barrier_total, NULL, P1);
     pthread_barrier_init(&barrier, NULL, P1);
     pthread_mutex_init(&lock, NULL);
-    for (int i = 0; i < 2097152; i++)
-    {
-        pthread_mutex_init(&locks[i], NULL);
-    }
 
     //Thread Arguments
     for (int j = 0; j < P1; j++)

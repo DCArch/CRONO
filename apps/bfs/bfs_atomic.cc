@@ -40,7 +40,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 
 //Global Variables
 pthread_mutex_t lock;            //single lock
-//pthread_mutex_t locks[4194304];  //locks for each vertes, upper limit
 int local_min_buffer[1024];
 int global_min_buffer;
 int Total = 0;
@@ -112,20 +111,7 @@ void* do_work(void* args)
                     {
                         int a1 = __sync_fetch_and_sub(&Q[neighbor], 1);
                     }
-                    /*int c; int d;                                   //Uncomment for compare and swap implementation
-                    do{
-                    int a = Q[neighbor];
-                    //int b = temporary[neighbor];
-                    c=1;
-                    c = __sync_bool_compare_and_swap(&Q[neighbor], a, 0);
-                    //d = __sync_bool_compare_and_swap(&temporary[neighbor], b, 1);
-                  }while(!c);*/
                     temporary[neighbor] = 1;
-                    //pthread_mutex_lock(&locks[neighbor]);
-                    //if(Q[neighbor]==1)                       //if unset then set
-                    //   Q[neighbor]=0;                        //Can be set to Parent
-                    //temporary[neighbor] = 1;
-                    //pthread_mutex_unlock(&locks[neighbor]);
                 }
             }
         }
@@ -342,7 +328,6 @@ int main(int argc, char** argv)
         if (exist[i] == 1)
         {
             Total++;
-            //pthread_mutex_init(&locks[i], NULL);
         }
     }
     //printf("\n %d %d %d",N,largest,Total);

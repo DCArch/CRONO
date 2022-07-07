@@ -45,7 +45,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 int min = INT_MAX;
 int min_index = 0;
 pthread_mutex_t lock;
-pthread_mutex_t locks[2097152]; //change the number of locks to approx or greater N
 int u = -1;
 int local_min_buffer[1024];
 int global_min_buffer;
@@ -127,7 +126,6 @@ void* do_work(void* args)
                     break;
                 }
 
-                //pthread_mutex_lock(&locks[neighbor]);
 
                 //relax
                 if ((D[W_index[v][i]] > (D[v] + W[v][i])))
@@ -135,7 +133,6 @@ void* do_work(void* args)
                     D_temp[W_index[v][i]] = D[v] + W[v][i];
                 }
                 //printf("\n %d",D_temp[W_index[v][i]]);
-                //pthread_mutex_unlock(&locks[neighbor]);
             }
         }
 
@@ -401,7 +398,6 @@ int main(int argc, char** argv)
     pthread_mutex_init(&lock, NULL);
     for (int i = 0; i < N; i++)
     {
-        pthread_mutex_init(&locks[i], NULL);
         if (select == 0)
         {
             exist[i] = 1;

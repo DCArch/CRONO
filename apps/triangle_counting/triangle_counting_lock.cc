@@ -35,7 +35,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 //Global Variables
 pthread_mutex_t lock;
 pthread_mutex_t* locks;
-//pthread_mutex_t locks[4194304];      //Lock for each vertex
 int local_min_buffer[1024];
 double Total_tid[1024] = {0};           //To store triangles per thread
 int global_min_buffer;

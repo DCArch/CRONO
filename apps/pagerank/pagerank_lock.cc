@@ -406,7 +406,6 @@ int main(int argc, char** argv)
             }
             //test[i] = DEG;
         }
-        //pthread_mutex_init(&locks[i], NULL);
     }
 
     //Initialize PageRanks

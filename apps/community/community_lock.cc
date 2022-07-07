@@ -36,8 +36,6 @@ void init_weights(int N, int DEG, float** W_f, int** W_index);
 //Global Variables
 float** W_f;                                     //Weights
 pthread_mutex_t lock;                          //single lock
-pthread_mutex_t* locks;
-//pthread_mutex_t locks[2097152];                //Max locks for each vertex
 int iterations = 0;                            //Iterations for community over the graph
 //int *edges;                                    //Edges per vertex
 //int *exist;                                    //If vertex exists in the graph
@@ -109,18 +107,12 @@ void* do_work(void* args)
         for (v = start; v < stop; v++)
             //while(v<N-2)
         {
-            //pthread_mutex_lock(&lock);
-            //v_test++;
-            //v = v_test;
-            //printf(" %d ",v);
-            //pthread_mutex_unlock(&lock);
             if (edges[v] == 0)
             {
                 continue;
             }
             for (i = 0; i < edges[v]; i++)
             {
-                //pthread_mutex_lock(&locks[neighbor]);
                 float total_edges = largest * edges[v];
                 float inv_total_edges = 2 / total_edges;
                 int tempo = (inv_total_edges) * (inv_total_edges);
@@ -136,18 +128,14 @@ void* do_work(void* args)
                     mod_gain_temp = mod_gain_temp_temp;
                     index = W_index[v][i];
                 }
-
-                //pthread_mutex_unlock(&locks[neighbor]);
             }
             mod_gain[v] = mod_gain_temp;
             comm[v] = index;   //cvk
 
 
             //update individual  sums
-            //pthread_mutex_lock(&lock);
             sum_tot = sum_tot + W_f[v][i];
             sum_in = sum_in + W_f[v][i];
-            //pthread_mutex_unlock(&lock);
         }
 
         pthread_barrier_wait(arg->barrier_total);
@@ -162,11 +150,7 @@ void* do_work(void* args)
             for (i = 0; i < edges[v] - 1; i++)
             {
                 int neighbor = W_index[v][i];
-                //printf("\n %d",neighbor);
-                //pthread_mutex_lock(&locks[neighbor]);  //Fine Grained lock removed as neighbors are not being updated
-                //W_index[v][i] = comm[neighbor];
                 W_f[v][i] = comm[v] - comm[neighbor];
-                //pthread_mutex_unlock(&locks[neighbor]);
             }
         }
 
@@ -479,7 +463,6 @@ int main(int argc, char** argv)
     //Synchronization variables
     pthread_barrier_init(&barrier_total, NULL, P);
     pthread_barrier_init(&barrier, NULL, P);
-    locks = (pthread_mutex_t*) malloc((largest + 16) * sizeof(pthread_mutex_t));
 
     for (int i = 0; i < largest + 1; i++)
     {
@@ -487,10 +470,6 @@ int main(int argc, char** argv)
         {
             //exist[i]=1;
             edges[i] = DEG;
-        }
-        if (edges[i] != 0)
-        {
-            pthread_mutex_init(&locks[i], NULL);
         }
     }
 

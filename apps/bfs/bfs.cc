@@ -39,7 +39,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 
 //Global Variables
 pthread_mutex_t lock;              //single lock
-//pthread_mutex_t locks[4194304];  //locks for each vertes, upper limit
 pthread_mutex_t* locks;
 int local_min_buffer[1024];
 int global_min_buffer;

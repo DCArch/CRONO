@@ -33,7 +33,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 
 //Global Variables
 pthread_mutex_t lock;
-//pthread_mutex_t locks[4194304];    //locks for each vertex
 int local_min_buffer[1024];
 int global_min_buffer;
 int P_global = 256;
@@ -94,15 +93,12 @@ void* do_work(void* args)
                 for (int i = 0; i < edges[v]; i++)   //for each edge
                 {
                     int neighbor = W_index[v][i];
-                    //pthread_mutex_lock(&locks[neighbor]);
 
                     if ((D[v] < D[neighbor]) && (D[neighbor] == D[D[neighbor]]))
                     {
                         mod = 1;                      //some change occured
                         D[D[neighbor]] = D[v];
                     }
-
-                    //pthread_mutex_unlock(&locks[neighbor]);
                 }
             }
         }
@@ -403,8 +399,6 @@ int main(int argc, char** argv)
             //exist[i] = 1;
             edges[i] = DEG;
         }
-        //if(exist[i]==1)
-        //   pthread_mutex_init(&locks[i], NULL);
     }
 
     //Initialize arrays

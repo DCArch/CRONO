@@ -35,8 +35,6 @@ void init_weights(int N, int DEG, int** W, int** W_index);
 
 //Global Variables
 pthread_mutex_t lock;
-pthread_mutex_t* locks;
-//pthread_mutex_t locks[4194304];      //Lock for each vertex
 int local_min_buffer[1024];
 double Total_tid[1024] = {0};           //To store triangles per thread
 int global_min_buffer;
@@ -95,10 +93,6 @@ void* do_work(void* args)
                 {
                     continue;
                 }
-                /*pthread_mutex_lock(&locks[neighbor]);
-                D[neighbor]++;   //Add edges
-                Q[neighbor] = 0;
-                pthread_mutex_unlock(&locks[neighbor]);*/
                 int a = __sync_fetch_and_add(&D[W_index[v][i]], 1);
                 Q[W_index[v][i]] = 0;
             }
@@ -430,7 +424,6 @@ int main(int argc, char** argv)
     pthread_barrier_init(&barrier, NULL, P);
     pthread_mutex_init(&lock, NULL);
     PMAX = P; //for atomic barrier
-    locks = (pthread_mutex_t*) malloc((largest + 16) * sizeof(pthread_mutex_t));
 
     for (int i = 0; i < largest + 1; i++)
     {
@@ -440,7 +433,6 @@ int main(int argc, char** argv)
             edges[i] = DEG;
         }
         //if(exist[i]==1)
-        pthread_mutex_init(&locks[i], NULL);
     }
 
     //Initialize 1-d arrays
