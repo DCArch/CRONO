@@ -206,6 +206,7 @@ int main(int argc, char** argv)
             }
         }
         fclose(file_gr); //Now N has the largest Vertex ID
+        N++;
 
         int* temp;
         number_of_lines0 = 0;
@@ -214,7 +215,7 @@ int main(int argc, char** argv)
             fprintf(stderr, "Allocation of memory failed\n");
             exit(EXIT_FAILURE);
         }
-        for (int i = 0; i <= N; i++)
+        for (int i = 0; i < N; i++)
         {
             temp[i] = 0;
         }
@@ -237,7 +238,7 @@ int main(int argc, char** argv)
             }
         }
         fclose(file_gr);
-        for (int i = 0; i <= N; i++)
+        for (int i = 0; i < N; i++)
         {
             if (temp[i] > DEG)
             {
